@@ -1,0 +1,80 @@
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+class DescricaoCasoActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            TelaDescricaoCaso()
+        }
+    }
+}
+
+@Composable
+fun TelaDescricaoCaso() {
+    var descricao by remember { mutableStateOf("") }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                text = "XÔ DENGUE",
+                fontSize = 36.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Red
+            )
+
+            TextField(
+                value = descricao,
+                onValueChange = { descricao = it },
+                placeholder = { Text("DESCREVA O CASO") },
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(100.dp)
+                    .background(Color.LightGray, RoundedCornerShape(8.dp)),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color.LightGray,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_camera), // Substitua com o ID do recurso
+                contentDescription = null,
+                modifier = Modifier
+                    .size(100.dp)
+                    .clickable { /* Abrir câmera */ }
+            )
+
+            BotaoRedondo(
+                text = "REGISTRAR",
+                backgroundColor = Color.Green
+            ) {
+                println("Caso registrado: $descricao")
+            }
+        }
+    }
+}
