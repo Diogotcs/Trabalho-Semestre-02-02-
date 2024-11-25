@@ -1,0 +1,90 @@
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+class CasosMortesActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            TelaCasosMortes(
+                totalCasos = 400
+                totalMortes = 35
+            )
+        }
+    }
+}
+
+@Composable
+fun TelaCasosMortes(totalCasos: Int, totalMortes: Int) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                text = "ESTATÍSTICAS DA DENGUE",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Red
+            )
+
+            CardEstatisticas(
+                titulo = "Total de Casos Registrados",
+                valor = totalCasos,
+                backgroundColor = Color(0xFFFFC107) // Amarelo
+            )
+
+            CardEstatisticas(
+                titulo = "Total de Mortes",
+                valor = totalMortes,
+                backgroundColor = Color(0xFFFF5252) // Vermelho
+            )
+        }
+    }
+}
+
+@Composable
+fun CardEstatisticas(titulo: String, valor: Int, backgroundColor: Color) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(0.8f)
+            .padding(8.dp)
+            .background(backgroundColor, shape = RoundedCornerShape(8.dp))
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = titulo,
+                fontSize = 18.sp,
+                color = Color.White,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = valor.toString(),
+                fontSize = 32.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
