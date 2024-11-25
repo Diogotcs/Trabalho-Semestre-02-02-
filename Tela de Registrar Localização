@@ -1,0 +1,80 @@
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+class LocalizacaoActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            TelaLocalizacao(onRegistrarClick = { navigateToSucesso() })
+        }
+    }
+
+    private fun navigateToSucesso() {
+        val intent = Intent(this, SucessoActivity::class.java)
+        startActivity(intent)
+    }
+}
+
+@Composable
+fun TelaLocalizacao(onRegistrarClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                text = "XÔ DENGUE",
+                fontSize = 36.sp,
+                color = Color.Red
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_map), // Substitua pelo ID do mapa
+                contentDescription = "Mapa",
+                modifier = Modifier
+                    .size(250.dp)
+                    .background(Color.Gray, RoundedCornerShape(8.dp))
+            )
+
+            BotaoVerde(text = "REGISTRAR LOCALIZAÇÃO", onClick = onRegistrarClick)
+        }
+    }
+}
+
+@Composable
+fun BotaoVerde(text: String, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .width(250.dp)
+            .height(50.dp)
+            .background(Color.Green, shape = RoundedCornerShape(25.dp))
+            .clickable { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text,
+            fontSize = 16.sp,
+            color = Color.White
+        )
+    }
+}
